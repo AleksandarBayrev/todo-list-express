@@ -4,6 +4,7 @@ export type RenderProps = {
     js: string[]
     css: string[]
     header: string
+    loggedIn: boolean
 }
 
 export type buildRenderPropsOptions = {

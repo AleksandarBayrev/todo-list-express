@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{title}</title>
+    {#css}
+    <link rel='stylesheet' href={css} />
+    {/css}
+    {#js}
+    <script type='text/javascript' src={js}></script>
+    {/js}
+</head>
+<body>
+    <div class='content'>
+        <h1>{header}</h1>
+        <div id='time'></div>
+        {^loggedIn}
+        <div id='message'>Please login to view this page.</div>
+        {:else}
+        <div class='todo-manage'>
+            <div id='add-todo-container'>
+                <input type='text' id='todo-content'>
+                <button onclick="TodoManager.addTodo(document.getElementById('todo-content'))">Add todo</button>
+            </div>
+        </div>
+        <div id='todos'></div>
+        {/loggedIn}
+        <p>{footer}</p>
+    </div>
+</body>
+</html>

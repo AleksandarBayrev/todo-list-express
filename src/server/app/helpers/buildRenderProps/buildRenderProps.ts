@@ -14,7 +14,8 @@ export const buildRenderProps = (props: RenderProps, options?: buildRenderPropsO
         footer: props.footer,
         js: props.js,
         css: props.css,
-        header: props.header
+        header: props.header,
+        loggedIn: props.loggedIn
     }, options)
 
     return resultProps

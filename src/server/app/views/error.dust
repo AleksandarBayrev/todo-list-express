@@ -7,9 +7,11 @@
     {/css}
   </head>
   <body>
-    <h1>{message}</h1>
-    <h2>{error.status}</h2>
-    <pre>{error.stack}</pre>
-    <p>{footer}</p>
+    <div class='content'>
+      <h1>{message}</h1>
+      <h2>{error.status}</h2>
+      <pre>{error.stack}</pre>
+      <p>{footer}</p>
+    </div>
   </body>
 </html>

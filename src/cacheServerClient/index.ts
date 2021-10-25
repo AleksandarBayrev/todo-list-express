@@ -3,6 +3,7 @@ import axios from 'axios'
 export type CacheServerClient = {
     add(key: string, item: any): any;
     get(key: string): any;
+    remove(key: string): any;
     init(options: InitOptions): void
 }
 
@@ -10,7 +11,7 @@ type InitOptions = {
     cacheServerUrl: string
 }
 
-type Endpoint = 'add' | 'get'
+type Endpoint = 'add' | 'get' | 'remove'
 
 enum CacheServerClientErrors {
     NOT_INITIALIZED = 'CacheServerClient not initialized!'
@@ -28,6 +29,9 @@ export const CacheServerClient: CacheServerClient = (() => {
                 break;
 
             case 'get':
+                url = `${cacheServerUrl}/${endpoint}?itemKey=${itemKey}`
+                break;
+            case 'remove':
                 url = `${cacheServerUrl}/${endpoint}?itemKey=${itemKey}`
                 break;
         }
@@ -61,6 +65,18 @@ export const CacheServerClient: CacheServerClient = (() => {
         }
     }
 
+    const remove = async (key: string) => {
+        if (!isInitialized) {
+            throw CacheServerClientErrors.NOT_INITIALIZED;
+        }
+
+        try {
+            return await axios.get(buildUrl('remove', key)).then(x => x.data);
+        } catch (error) {
+            return handleError(error)
+        }
+    }
+
     const init = (options: InitOptions) => {
         cacheServerUrl = options.cacheServerUrl
         isInitialized = true
@@ -74,6 +90,7 @@ export const CacheServerClient: CacheServerClient = (() => {
     return {
         add,
         get,
+        remove,
         init
     }
 })()

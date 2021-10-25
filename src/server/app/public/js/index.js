@@ -5,29 +5,9 @@
         }
     }
 
-    let timeoutInstance
-
     document.addEventListener('loadstart', () => {
         getTime()
     })
-
-    window.ExpressTsTemplateGreet = () => {
-        if (timeoutInstance) {
-            clearTimeout(timeoutInstance)
-        }
-        const timeout = 5000
-        const element = document.getElementById(elements.ids.message)
-        element.innerHTML = `<h1>Express.TS Template Hello :)<br>This message will clear after ${timeout / 1000} seconds</h1>`
-        timeoutInstance = setTimeout(() => {
-            element.innerHTML = ''
-        }, timeout)
-    }
-
-    window.ResetGreeting = () => {
-        clearTimeout(timeoutInstance)
-        const element = document.getElementById(elements.ids.message)
-        element.innerHTML = ''
-    }
 
     window.getTime = () => {
         const getTime = () => {
@@ -42,6 +22,38 @@
             getTime()
         }, 500)
     }
+
+    window.TodoManager = (() => {
+        const addTodo = (todo) => {}
+        return {
+            addTodo
+        }
+    })()
+
+    window.UserManager = (() => {
+        const login = (username, passowrd) => {
+            fetch('/user/login', {
+                method: 'POST',
+                body: {
+                    username,
+                    passowrd
+                }
+            }).then(res => window.location.href = '/')
+        }
+        const register = (username, passowrd) => {
+            fetch('/user/register', {
+                method: 'POST',
+                body: {
+                    username,
+                    passowrd
+                }
+            }).then(res => window.location.href = '/')
+        }
+        return {
+            login,
+            register
+        }
+    })()
 })()
 
 getTime()

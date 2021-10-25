@@ -5,6 +5,7 @@ import { addErrorHandler } from './addErrorHandler'
 import { addFourOhFourHandler } from './addFourOhFourHandler'
 import { addJson } from './addJson'
 import { addLogger } from './addLogger'
+import { addLoginMiddleware } from './addLoginMiddleware'
 import { addStaticPaths } from './addStaticPaths'
 import { addUrlEncodedMiddleware } from './addUrlEncodedMiddleware'
 import { cacheEnvironmentVariables } from './cacheEnvironmentVariables'
@@ -20,6 +21,7 @@ export const startupConfiguration = (app: express.Application, configuration: IA
     addJson(app, configuration)
     addUrlEncodedMiddleware(app)
     setupCookieParser(app)
+    addLoginMiddleware(app, configuration)
     addStaticPaths(app, configuration)
     initCacheClient(app, configuration)
     mapRoutes(app)

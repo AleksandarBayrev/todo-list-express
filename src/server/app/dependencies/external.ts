@@ -5,7 +5,7 @@ const logger = require('morgan')
 const adaro = require('adaro')
 const cookieParser = require('cookie-parser')
 import dotenv from 'dotenv'
-
+import uuid from 'uuid'
 export {
     path,
     express,
@@ -13,5 +13,6 @@ export {
     logger,
     adaro,
     cookieParser,
-    dotenv
+    dotenv,
+    uuid
 }
