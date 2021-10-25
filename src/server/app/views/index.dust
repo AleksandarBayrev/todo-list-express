@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{title}</title>
+    {#css}
+    <link rel='stylesheet' href={css} />
+    {/css}
+    {#js}
+    <script type='text/javascript' src={js}></script>
+    {/js}
+  </head>
+  <body>
+    <h1>{header}</h1>
+    <p>Welcome to {header}</p>
+    <button onclick="ExpressTsTemplateGreet()">Click me</button>
+    <button onclick="ResetGreeting()">Reset alert</button>
+    <div id='time'></div>
+    <div id='alert-message'></div>
+    <p>{footer}</p>
+  </body>
+</html>
