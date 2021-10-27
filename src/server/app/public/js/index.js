@@ -31,8 +31,8 @@
     })()
 
     window.UserManager = (() => {
-        const login = (username, password) => {
-            fetch('/user/login', {
+        const login = async (username, password) => {
+            await fetch('/user/login', {
                 method: 'POST',
                 body: JSON.stringify({
                     username,
@@ -40,8 +40,8 @@
                 })
             }).then(res => window.location.href = '/')
         }
-        const register = (username, password) => {
-            fetch('/user/register', {
+        const register = async (username, password) => {
+            await fetch('/user/register', {
                 method: 'POST',
                 body: JSON.stringify({
                     username,
