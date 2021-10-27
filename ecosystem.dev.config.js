@@ -5,7 +5,7 @@ module.exports = {
         {
             name: getAppName(),
             script: './build/server/server.js',
-            instances: 'max',
+            instances: '1',
             exec_mode: 'cluster',
             watch: ['./src']
         },
