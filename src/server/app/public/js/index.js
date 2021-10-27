@@ -31,22 +31,22 @@
     })()
 
     window.UserManager = (() => {
-        const login = (username, passowrd) => {
+        const login = (username, password) => {
             fetch('/user/login', {
                 method: 'POST',
-                body: {
+                body: JSON.stringify({
                     username,
-                    passowrd
-                }
+                    password
+                })
             }).then(res => window.location.href = '/')
         }
-        const register = (username, passowrd) => {
+        const register = (username, password) => {
             fetch('/user/register', {
                 method: 'POST',
-                body: {
+                body: JSON.stringify({
                     username,
-                    passowrd
-                }
+                    password
+                })
             }).then(res => window.location.href = '/')
         }
         return {
