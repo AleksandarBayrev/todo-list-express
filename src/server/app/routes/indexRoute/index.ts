@@ -1,6 +1,6 @@
 import { appConfig } from '../../app.config'
 import { express } from '../../dependencies'
-import { buildRenderProps } from '../../helpers'
+import { buildRenderProps, getHostname } from '../../helpers'
 import { RenderProps } from '../../types'
 const router = express.Router()
 
@@ -14,7 +14,8 @@ router.get('/', (req: express.Request, res: express.Response, next: express.Next
     footer: `Copyright (C) ${new Date().getFullYear()}`,
     css: appConfig.assets.css,
     loggedIn,
-    js: appConfig.assets.js
+    js: appConfig.assets.js,
+    hostUrl: getHostname(req)
   }
   res.render('index', buildRenderProps(renderOptions))
 })
@@ -28,7 +29,8 @@ router.get('/todos', (req: express.Request, res: express.Response, next: express
     footer: `Copyright (C) ${new Date().getFullYear()}`,
     css: appConfig.assets.css,
     loggedIn,
-    js: appConfig.assets.js
+    js: appConfig.assets.js,
+    hostUrl: getHostname(req)
   }
   res.render('todos', buildRenderProps(renderOptions))
 })

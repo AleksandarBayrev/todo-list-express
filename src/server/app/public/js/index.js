@@ -32,22 +32,28 @@
 
     window.UserManager = (() => {
         const login = async (username, password) => {
-            await fetch('/user/login', {
+            const result = await fetch(`${hostUrl}user/login`, {
                 method: 'POST',
                 body: JSON.stringify({
                     username,
                     password
                 })
-            }).then(res => window.location.href = '/')
+            }).then(res => res.json())
+            .catch(err => console.error(err))
+
+            console.log(result)
         }
         const register = async (username, password) => {
-            await fetch('/user/register', {
+            const result = await fetch(`${hostUrl}user/register`, {
                 method: 'POST',
                 body: JSON.stringify({
                     username,
                     password
                 })
-            }).then(res => window.location.href = '/')
+            }).then(res => res.json())
+            .catch(err => console.error(err))
+
+            console.log(result)
         }
         return {
             login,

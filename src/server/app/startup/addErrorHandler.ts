@@ -1,7 +1,7 @@
 import { appConfig } from '../app.config'
 import { Environment } from '../app.constants'
 import { express } from '../dependencies'
-import { buildRenderProps } from '../helpers'
+import { buildRenderProps, getHostname } from '../helpers'
 import { ExpressError, RenderProps } from '../types'
 
 export const addErrorHandler = (app: express.Application) => {
@@ -15,7 +15,8 @@ export const addErrorHandler = (app: express.Application) => {
             footer: `Copyright (C) ${new Date().getFullYear()}`,
             css: appConfig.assets.css,
             js: appConfig.assets.js,
-            loggedIn
+            loggedIn,
+            hostUrl: getHostname(req)
         }
         // set locals, only providing error in development
         res.locals.message = err.message

@@ -5,6 +5,7 @@ export type RenderProps = {
     css: string[]
     header: string
     loggedIn: boolean
+    hostUrl: string
 }
 
 export type buildRenderPropsOptions = {

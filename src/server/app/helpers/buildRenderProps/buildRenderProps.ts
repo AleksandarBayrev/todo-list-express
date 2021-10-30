@@ -15,7 +15,8 @@ export const buildRenderProps = (props: RenderProps, options?: buildRenderPropsO
         js: props.js,
         css: props.css,
         header: props.header,
-        loggedIn: props.loggedIn
+        loggedIn: props.loggedIn,
+        hostUrl: props.hostUrl
     }, options)
 
     return resultProps
