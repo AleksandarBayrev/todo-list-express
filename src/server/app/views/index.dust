@@ -16,16 +16,18 @@
     <div class='content'>
       <h1>{header}</h1>
       <p>Welcome to {header}</p>
+      <h1>Login status: {loggedIn}</h1>
       <div id='time'></div>
       {^loggedIn}
       <div class='login'>
         <input type='text' id='username-field' placeholder='Username'>
-        <input type='password' id='password-field' placeholder='Username'>
+        <input type='password' id='password-field' placeholder='Password'>
         <button onclick="UserManager.login(document.getElementById('username-field').value, document.getElementById('password-field').value)">Login</button>
         <button onclick="UserManager.register(document.getElementById('username-field').value, document.getElementById('password-field').value)">Register</button>
       </div>
       {:else}
         <a href='/todos'>Todos</a>
+        <button onclick="UserManager.logout()">Logout</button>
       {/loggedIn}
       <p>{footer}</p>
     </div>

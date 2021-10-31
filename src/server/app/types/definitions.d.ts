@@ -1,6 +1,7 @@
 interface LoginStatus {
     status: boolean
     sessionId: string
+    username: string
 }
 
 declare namespace Express {

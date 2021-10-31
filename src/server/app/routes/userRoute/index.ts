@@ -8,17 +8,16 @@ const router = express.Router()
 router.post('/login', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const sessionId = uuid.v4()
-        if (req.body.username && await CacheServerClient.get(`user-${req.body.username}`)) {
+        if (!req.body.username || !req.body.password) {
+            return res.status(500).send({ status: false, error: `Missing: username=${req.body.username} password=${req.body.password}`})
+        }
+        if (await CacheServerClient.get(`user-${req.body.username}`)) {
             req.cookies['sessionId'] = sessionId
             req.cookies['username'] = req.body.username
-            const state: LoginStatus = { sessionId, status: true }
-            try {
-                await CacheServerClient.add(`login-${req.body.username}`, state)
-            } catch (err) {
-                return res.send(err)
-            }
+            const state: LoginStatus = { sessionId, status: true, username: req.body.username }
+            await CacheServerClient.add(`login-${req.body.username}`, JSON.stringify(state))
             req.loginStatus[sessionId] = state
-            return res.send({ status: true, sessionId: uuid.v4(), username: req.body.username })
+            return res.send({ ...state })
         }
         return res.send({ status: false })
     } catch (err) {
@@ -43,15 +42,19 @@ router.post('/logout', async (req: express.Request, res: express.Response, next:
 router.post('/register', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const userId = uuid.v4()
+        if (!req.body.username || !req.body.password) {
+            return res.status(500).send({ status: false, error: `Missing: username=${req.body.username} password=${req.body.password}`})
+        }
         if (typeof await CacheServerClient.get(`user-${req.body.username}`) === 'undefined') {
             return res.send({ status: false })
         }
         const newUser = {
             id: userId,
             username: req.body.username,
-            password: crypto.createHash('sha1').update(req.body.password).digest('hex')
+            password: req.body.password
         }
         await CacheServerClient.add(`user-${req.body.username}`, JSON.stringify(newUser))
+        //console.log(await CacheServerClient.get(`user-${req.body.username}`))
         return res.send({ status: typeof await CacheServerClient.get(`user-${req.body.username}`) !== 'undefined' ? 'OK' : 'ERROR', username: req.body.username, id: userId })
     } catch (err) {
         return res.status(500).send({ status: false, error: JSON.stringify(err) })

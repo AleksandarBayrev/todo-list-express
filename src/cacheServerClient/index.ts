@@ -17,6 +17,8 @@ enum CacheServerClientErrors {
     NOT_INITIALIZED = 'CacheServerClient not initialized!'
 }
 
+const config = {headers:{'Content-Type': 'application/json'}}
+
 export const CacheServerClient: CacheServerClient = (() => {
     let isInitialized = false;
     let cacheServerUrl = '';
@@ -47,7 +49,7 @@ export const CacheServerClient: CacheServerClient = (() => {
             return await axios.post(buildUrl('add'), {
                 itemKey: key,
                 itemData: item
-            });
+            }, config);
         } catch (error) {
             return handleError(error)
         }
@@ -71,7 +73,7 @@ export const CacheServerClient: CacheServerClient = (() => {
         }
 
         try {
-            return await axios.get(buildUrl('remove', key)).then(x => x.data);
+            return await axios.get(buildUrl('remove', key), config).then(x => x.data);
         } catch (error) {
             return handleError(error)
         }
