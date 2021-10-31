@@ -2,28 +2,35 @@
 <html>
 <head>
     <title>{title}</title>
+    <script>
+      window.hostUrl = `{hostUrl}`
+    </script>
     {#css}
     <link rel='stylesheet' href={css} />
     {/css}
     {#js}
     <script type='text/javascript' src={js}></script>
     {/js}
+    <script>
+        TodoManager.getTodos(CookieManager.getCookie('username')).then(res => document.getElementById('todos').innerHTML = JSON.stringify(res.todos)).catch(err => document.getElementById('todos').innerHTML = 'Error!')
+    </script>
 </head>
 <body>
     <div class='content'>
         <h1>{header}</h1>
         <div id='time'></div>
-        {^loggedIn}
+        <a href='/'>Index</a>
+        {@eq key=loggedIn value="false"}
         <div id='message'>Please login to view this page.</div>
         {:else}
         <div class='todo-manage'>
             <div id='add-todo-container'>
                 <input type='text' id='todo-content'>
-                <button onclick="TodoManager.addTodo(document.getElementById('todo-content'))">Add todo</button>
+                <button onclick="TodoManager.addTodo(document.getElementById('todo-content').value)">Add todo</button>
             </div>
         </div>
         <div id='todos'></div>
-        {/loggedIn}
+        {/eq}
         <p>{footer}</p>
     </div>
 </body>

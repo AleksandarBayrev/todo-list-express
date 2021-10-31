@@ -4,7 +4,7 @@ export type RenderProps = {
     js: string[]
     css: string[]
     header: string
-    loggedIn: boolean
+    loggedIn: string
     hostUrl: string
 }
 

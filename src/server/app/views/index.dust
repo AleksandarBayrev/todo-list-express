@@ -18,7 +18,7 @@
       <p>Welcome to {header}</p>
       <h1>Login status: {loggedIn}</h1>
       <div id='time'></div>
-      {^loggedIn}
+      {@eq key=loggedIn value="false"}
       <div class='login'>
         <input type='text' id='username-field' placeholder='Username'>
         <input type='password' id='password-field' placeholder='Password'>
@@ -28,7 +28,7 @@
       {:else}
         <a href='/todos'>Todos</a>
         <button onclick="UserManager.logout()">Logout</button>
-      {/loggedIn}
+      {/eq}
       <p>{footer}</p>
     </div>
   </body>
