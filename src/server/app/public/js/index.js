@@ -83,9 +83,33 @@
                 return result
             }
         }
+        const mapTodos = (domId, todos) => {
+            return todos.map(userTodo => document.getElementById(domId).innerHTML += `<div id=${userTodo.id}>Todo: ${userTodo.todo} <a onclick="TodoManager.removeTodo(CookieManager.getCookie('username'), '${userTodo.id}');TodoManager.getTodos(CookieManager.getCookie('username'))
+            .then(res => TodoManager.updateTodos('todos', res.todos))
+            .catch(err => TodoManager.updateTodos('todos', ['Error!']))">(x)</a></div>`)
+        }
+        const updateTodos = (domId, todos) => {
+            document.getElementById(domId).innerHTML = ""
+            mapTodos(domId, todos)
+        }
+        const removeTodo = async (username, todoId) => {
+            const result = await fetch(`${hostUrl}todos/remove`, {
+                headers,
+                method: 'POST',
+                body: JSON.stringify({ username, todoId })
+            }).then(res => res.json())
+                .catch(err => console.error(err))
+
+            if (result) {
+                return result
+            }
+        }
         return {
             addTodo,
-            getTodos
+            getTodos,
+            mapTodos,
+            removeTodo,
+            updateTodos
         }
     })()
 

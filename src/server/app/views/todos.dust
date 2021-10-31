@@ -12,7 +12,12 @@
     <script type='text/javascript' src={js}></script>
     {/js}
     <script>
-        TodoManager.getTodos(CookieManager.getCookie('username')).then(res => document.getElementById('todos').innerHTML = JSON.stringify(res.todos)).catch(err => document.getElementById('todos').innerHTML = 'Error!')
+        window.addEventListener("load", () => {
+            setInterval(async () =>
+                await TodoManager.getTodos(CookieManager.getCookie('username'))
+                .then(res => TodoManager.updateTodos('todos', res.todos))
+                .catch(err => TodoManager.updateTodos('todos', ['Error!'])), 1000)
+        })
     </script>
 </head>
 <body>
